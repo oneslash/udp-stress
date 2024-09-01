@@ -1,0 +1,13 @@
+[package]
+name = "udp-stress"
+authors = ["Sardorbek Pulatov<sardo@hey.com>"]
+repository = "https://github.com/oneslash/udp-stress"
+description = "Simple UDP packet sender, sends data from the folder randomly"
+version = "0.1.0"
+edition = "2021"
+readme = "README.md"
+license = "MIT" 
+
+[dependencies]
+tokio = { version = "1.40.0", features = ["full"] }
+rand = "0.8"
