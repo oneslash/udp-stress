@@ -21,6 +21,11 @@ async fn main() {
         .map(|f| f.unwrap().path().to_str().unwrap().to_string())
         .collect();
 
+    if file_vec.is_empty() {
+    	eprintln!("No files found in the specified folder.");
+    	return;
+    }
+
     let sock = UdpSocket::bind("0.0.0.0:8080".parse::<SocketAddr>().unwrap())
         .await
         .unwrap();
@@ -37,7 +42,11 @@ async fn main() {
 
     loop {
         // random file selection
-        let random_index = rand::thread_rng().gen_range(0..file_vec.len() - 1);
+        let mut random_index = 0; 
+        if file_vec.len() > 1 {
+            random_index = rand::thread_rng().gen_range(0..file_vec.len() - 1);
+        }
+
         let file_contents = match fs::read(&file_vec[random_index]) {
             Ok(bytes) => bytes,
             Err(e) => {
